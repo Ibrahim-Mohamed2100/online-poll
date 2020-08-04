@@ -1,0 +1,107 @@
+<section class="current-events mt-3">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-8" >
+                <div class="card mb-3" style="max-width: 740px;">
+                    <div class="row no-gutters" *ngIf="eventItem">
+                        <div class="col-md-4">
+                            <img [src]="eventItem.image" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" >{{eventItem.eventName}}</h5>
+                                <p class="card-text">{{eventItem.details}}</p>
+                                <p class="card-text"><small class="text-muted">{{eventItem.date}}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+                    <div class="col-sm-4">
+                        <div class="user-poll-section card">
+
+
+                            <form [formGroup]="eventVotingForm">
+                            <div class="card card-default" *ngIf="eventItem">
+                                    <div class="card-header bg-primary text-white">
+                                            <strong>Question : </strong>{{eventItem.eventQuestion}}
+        
+                                </div>
+                                <!-- Card Details includes: options, results, Btn action -->
+                                <div class="card-body" formArrayName="options">
+                                    <!-- List of options -->
+                                    <ul class="list-group list-group-flush" *ngIf="eventItem">
+                                            <li class="list-group-item" *ngFor="let option of eventItem.options; let i = index">
+                                                <div class="checkbox">
+                                                    <label>
+                                                    <input [disableControl]="!this.votingService.storedStatus" (change)="change(this.eventVotingForm.value.options)"  #checkInput type="checkbox" [formControlName]="i"> {{option}}
+                                                </label>
+                                                </div>
+                                            </li> 
+                                    </ul>
+
+                                    <!-- Vote Button -->
+                                    <div class="card-footer">
+                                        <button [disabled]="!this.checkFormDirty" class="btn btn-primary btn-sm btn-block" type="button" (click)="onVoteBtnClick($event)">Vote</button>
+                                    </div>
+
+                                    <!-- Card Content & Voters count -->
+                                    <br>
+                                    <span class="text-danger">Result :</span>
+                                    <!-- <span>({{this.matchedEvents.length}}) </span>
+                                    <span class="text-danger">Voters</span> -->
+                                    <hr />
+                                    
+                                    <!-- Progress that display vote Result  -->
+                                    <div class="event" *ngIf="eventItem" >
+                                        <!-- Case: Existing Event in database -->
+                                        <div *ngIf="this.votingResultPerEvent">
+                                                <div class="event_options"  *ngFor="let item of votingResultPerEvent; let i = index">
+                                                    {{eventItem.options[i]}}
+                                                <span *ngIf="votingResultPerEvent">
+                                                    ({{item}})
+                                                </span>
+                                                <span *ngIf="!this.VoteResultCounter">(0)</span>:
+                                                <div class="progress  progress-bar-striped active">
+                                                        <div class="progress-bar  bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"  [style.width.%]="(item / this.matchedEvents.length) * 100">
+                                                            <span *ngIf="this.viewVotePercentage" class="">{{ (item / this.matchedEvents.length) * 100 | number }}%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <!-- Case: New Event in database -->
+                                        <div *ngIf="!this.votingResultPerEvent">
+                                                <div class="event_options"  *ngFor="let item of eventItem.options ; let i = index">
+                                                        {{eventItem.options[i]}}
+                                                    <span *ngIf="this.VoteResultCounter">
+                                                        (0)
+                                                    </span>:
+                                                    <div class="progress  progress-bar-striped active">
+                                                            <div class="progress-bar  bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"  [style.width.%]="0">
+                                                                <span *ngIf="this.viewVotePercentage" class="">0%</span>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <br>
+                            </div>
+                            </form>
+
+        
+                        </div>
+                        <!-- POLL DIV END-->
+                    </div>
+        </div>
+    </div>
+
+</section>
