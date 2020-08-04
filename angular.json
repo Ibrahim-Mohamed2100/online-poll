@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "test-app": {
+    "online-poll": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/test-app",
+            "outputPath": "dist/online-poll",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "test-app:build"
+            "browserTarget": "online-poll:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "test-app:build:production"
+              "browserTarget": "online-poll:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "test-app:build"
+            "browserTarget": "online-poll:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "test-app-e2e": {
+    "online-poll-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "test-app:serve"
+            "devServerTarget": "online-poll:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "test-app:serve:production"
+              "devServerTarget": "online-poll:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "test-app"
+  "defaultProject": "online-poll"
 }
